@@ -82,20 +82,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "AiJuz — платформа обучения программированию" },
+      { title: "AiJuz — изучай программирование быстрее, чем где-либо" },
       {
         name: "description",
         content:
-          "AiJuz: roadmap, курсы, задачи, онлайн IDE и AI-наставник для разработчиков.",
+          "Интерактивный roadmap, 300+ курсов, задачи уровня LeetCode, онлайн IDE и AI-наставник. Учись каждый день и держи серию.",
       },
       { name: "author", content: "AiJuz" },
-      { property: "og:title", content: "AiJuz — учись программировать быстрее" },
+      { property: "og:title", content: "AiJuz — изучай программирование быстрее, чем где-либо" },
       {
         property: "og:description",
-        content: "Roadmap, курсы, задачи, IDE и геймификация обучения.",
+        content: "Интерактивный roadmap, 300+ курсов, задачи уровня LeetCode, онлайн IDE и AI-наставник. Учись каждый день и держи серию.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "AiJuz — изучай программирование быстрее, чем где-либо" },
+      { name: "twitter:description", content: "Интерактивный roadmap, 300+ курсов, задачи уровня LeetCode, онлайн IDE и AI-наставник. Учись каждый день и держи серию." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e5bbe4f7-93ff-4184-bc9c-c58d32a520f7/id-preview-50f7711c--3671a1f3-8f22-44b9-a7b8-0670889bd42e.lovable.app-1785768181862.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e5bbe4f7-93ff-4184-bc9c-c58d32a520f7/id-preview-50f7711c--3671a1f3-8f22-44b9-a7b8-0670889bd42e.lovable.app-1785768181862.png" },
     ],
 
     links: [

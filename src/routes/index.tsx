@@ -24,10 +24,10 @@ export const Route = createFileRoute("/")({
         content:
           "Интерактивный roadmap, 300+ курсов, задачи уровня LeetCode, онлайн IDE и AI-наставник. Учись каждый день и держи серию.",
       },
-      { property: "og:title", content: "AiJuz — изучай программирование быстрее" },
+      { property: "og:title", content: "AiJuz — изучай программирование быстрее, чем где-либо" },
       {
         property: "og:description",
-        content: "Roadmap, курсы, задачи, IDE и AI-наставник в одной платформе.",
+        content: "Интерактивный roadmap, 300+ курсов, задачи уровня LeetCode, онлайн IDE и AI-наставник. Учись каждый день и держи серию.",
       },
     ],
   }),
