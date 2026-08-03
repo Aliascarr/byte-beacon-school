@@ -126,8 +126,17 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div className="relative min-h-screen overflow-x-hidden">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[720px] bg-hero-glow" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[720px] bg-grid opacity-40" />
+        <Navbar />
+        <main className="relative">
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
     </QueryClientProvider>
   );
 }
+
