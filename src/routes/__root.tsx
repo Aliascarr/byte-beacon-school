@@ -11,6 +11,11 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { Navbar } from "@/components/site/navbar";
+import { Footer } from "@/components/site/footer";
+import { Toaster } from "@/components/ui/sonner";
+
+
 
 function NotFoundComponent() {
   return (
@@ -77,15 +82,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "AiJuz — платформа обучения программированию" },
+      {
+        name: "description",
+        content:
+          "AiJuz: roadmap, курсы, задачи, онлайн IDE и AI-наставник для разработчиков.",
+      },
+      { name: "author", content: "AiJuz" },
+      { property: "og:title", content: "AiJuz — учись программировать быстрее" },
+      {
+        property: "og:description",
+        content: "Roadmap, курсы, задачи, IDE и геймификация обучения.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
+
     links: [
       {
         rel: "stylesheet",
@@ -119,8 +131,19 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div className="relative min-h-screen overflow-x-hidden">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[720px] bg-hero-glow" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[720px] bg-grid opacity-40" />
+        <Navbar />
+        <main className="relative">
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+        </main>
+        <Footer />
+        <Toaster />
+      </div>
+
     </QueryClientProvider>
   );
 }
+
