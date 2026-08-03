@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CoursesRouteImport } from './routes/courses'
+import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as ProblemsRouteImport } from './routes/problems'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
 
@@ -22,6 +23,11 @@ const IndexRoute = IndexRouteImport.update({
 const CoursesRoute = CoursesRouteImport.update({
   id: '/courses',
   path: '/courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlaygroundRoute = PlaygroundRouteImport.update({
+  id: '/playground',
+  path: '/playground',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProblemsRoute = ProblemsRouteImport.update({
@@ -38,12 +44,14 @@ const RoadmapRoute = RoadmapRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/courses': typeof CoursesRoute
+  '/playground': typeof PlaygroundRoute
   '/problems': typeof ProblemsRoute
   '/roadmap': typeof RoadmapRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/courses': typeof CoursesRoute
+  '/playground': typeof PlaygroundRoute
   '/problems': typeof ProblemsRoute
   '/roadmap': typeof RoadmapRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/courses': typeof CoursesRoute
+  '/playground': typeof PlaygroundRoute
   '/problems': typeof ProblemsRoute
   '/roadmap': typeof RoadmapRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/courses' | '/problems' | '/roadmap'
+  fullPaths: '/' | '/courses' | '/playground' | '/problems' | '/roadmap'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/courses' | '/problems' | '/roadmap'
-  id: '__root__' | '/' | '/courses' | '/problems' | '/roadmap'
+  to: '/' | '/courses' | '/playground' | '/problems' | '/roadmap'
+  id: '__root__' | '/' | '/courses' | '/playground' | '/problems' | '/roadmap'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CoursesRoute: typeof CoursesRoute
+  PlaygroundRoute: typeof PlaygroundRoute
   ProblemsRoute: typeof ProblemsRoute
   RoadmapRoute: typeof RoadmapRoute
 }
@@ -83,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/courses'
       fullPath: '/courses'
       preLoaderRoute: typeof CoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/playground': {
+      id: '/playground'
+      path: '/playground'
+      fullPath: '/playground'
+      preLoaderRoute: typeof PlaygroundRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/problems': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CoursesRoute: CoursesRoute,
+  PlaygroundRoute: PlaygroundRoute,
   ProblemsRoute: ProblemsRoute,
   RoadmapRoute: RoadmapRoute,
 }
