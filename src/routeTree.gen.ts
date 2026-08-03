@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CoursesRouteImport } from './routes/courses'
+import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as ProblemsRouteImport } from './routes/problems'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const CoursesRoute = CoursesRouteImport.update({
   id: '/courses',
   path: '/courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeaderboardRoute = LeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlaygroundRoute = PlaygroundRouteImport.update({
@@ -44,6 +50,7 @@ const RoadmapRoute = RoadmapRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/courses': typeof CoursesRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/playground': typeof PlaygroundRoute
   '/problems': typeof ProblemsRoute
   '/roadmap': typeof RoadmapRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/courses': typeof CoursesRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/playground': typeof PlaygroundRoute
   '/problems': typeof ProblemsRoute
   '/roadmap': typeof RoadmapRoute
@@ -59,21 +67,32 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/courses': typeof CoursesRoute
+  '/leaderboard': typeof LeaderboardRoute
   '/playground': typeof PlaygroundRoute
   '/problems': typeof ProblemsRoute
   '/roadmap': typeof RoadmapRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/courses' | '/playground' | '/problems' | '/roadmap'
+  fullPaths:
+    '/' | '/courses' | '/leaderboard' | '/playground' | '/problems' | '/roadmap'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/courses' | '/playground' | '/problems' | '/roadmap'
-  id: '__root__' | '/' | '/courses' | '/playground' | '/problems' | '/roadmap'
+  to:
+    '/' | '/courses' | '/leaderboard' | '/playground' | '/problems' | '/roadmap'
+  id:
+    | '__root__'
+    | '/'
+    | '/courses'
+    | '/leaderboard'
+    | '/playground'
+    | '/problems'
+    | '/roadmap'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CoursesRoute: typeof CoursesRoute
+  LeaderboardRoute: typeof LeaderboardRoute
   PlaygroundRoute: typeof PlaygroundRoute
   ProblemsRoute: typeof ProblemsRoute
   RoadmapRoute: typeof RoadmapRoute
@@ -93,6 +112,13 @@ declare module '@tanstack/react-router' {
       path: '/courses'
       fullPath: '/courses'
       preLoaderRoute: typeof CoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leaderboard': {
+      id: '/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof LeaderboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/playground': {
@@ -122,6 +148,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CoursesRoute: CoursesRoute,
+  LeaderboardRoute: LeaderboardRoute,
   PlaygroundRoute: PlaygroundRoute,
   ProblemsRoute: ProblemsRoute,
   RoadmapRoute: RoadmapRoute,
