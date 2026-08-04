@@ -14,20 +14,20 @@ const links = [
 ] as const;
 
 function ThemeToggle() {
-  const [light, setLight] = useState(false);
+  const [dark, setDark] = useState(false);
 
   useEffect(() => {
-    document.documentElement.classList.toggle("light", light);
-  }, [light]);
+    document.documentElement.classList.toggle("dark", dark);
+  }, [dark]);
 
   return (
     <Button
       variant="ghost"
       size="icon"
       aria-label="Переключить тему"
-      onClick={() => setLight((v) => !v)}
+      onClick={() => setDark((v) => !v)}
     >
-      {light ? <Moon className="size-4" /> : <Sun className="size-4" />}
+      {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
     </Button>
   );
 }
