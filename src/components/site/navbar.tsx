@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
-import { Menu, Moon, Sun, Terminal, X } from "lucide-react";
+import { Menu, Moon, Sun, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import eagleMascot from "@/assets/eagle-mascot.png";
 
 const links = [
   { to: "/roadmap", label: "Roadmap" },
@@ -39,9 +40,13 @@ export function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50">
       <div className="glass mx-auto mt-3 flex w-[min(1180px,94vw)] items-center justify-between rounded-2xl px-4 py-2.5">
         <Link to="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-          <span className="grid size-8 place-items-center rounded-xl bg-primary text-primary-foreground">
-            <Terminal className="size-4" />
-          </span>
+          <img
+            src={eagleMascot}
+            alt="AiJuz Eagle"
+            width={32}
+            height={32}
+            className="size-8 rounded-xl object-cover"
+          />
           <span className="text-base font-semibold tracking-tight">AiJuz</span>
         </Link>
 
