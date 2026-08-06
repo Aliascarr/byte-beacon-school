@@ -1,10 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Search, Star, Clock, BookOpen } from "lucide-react";
+import { Search, Star, Clock, BookOpen, PlayCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PageHeader, Reveal } from "@/components/site/reveal";
 import { courses, tracks } from "@/lib/content";
+import { CourseViewerPage } from "./courses_.$courseId";
 
 export const Route = createFileRoute("/courses")({
   head: () => ({
@@ -28,6 +29,7 @@ export const Route = createFileRoute("/courses")({
 function CoursesPage() {
   const [track, setTrack] = useState("Все");
   const [query, setQuery] = useState("");
+  const [activeCourseId, setActiveCourseId] = useState<string | null>(null);
 
   const filtered = useMemo(
     () =>
@@ -39,12 +41,22 @@ function CoursesPage() {
     [track, query],
   );
 
+  // If a course is selected, render the Course Viewer directly!
+  if (activeCourseId) {
+    return (
+      <CourseViewerPage
+        courseIdOverride={activeCourseId}
+        onClose={() => setActiveCourseId(null)}
+      />
+    );
+  }
+
   return (
     <div className="mx-auto w-[min(1180px,92vw)] pb-24">
       <PageHeader
         eyebrow="Курсы"
-        title="Курсы с практикой, а не только с видео"
-        description="Каждый курс содержит видео, конспект, примеры кода, домашнее задание, мини-тест и практику с автопроверкой."
+        title="Курсы с видеоуроками, практикой и конспектами"
+        description="Каждый курс содержит видеоуроки, детальный конспект, примеры кода, мини-тест и тесты знаний."
       />
 
       <Reveal>
@@ -76,32 +88,49 @@ function CoursesPage() {
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((c, i) => (
           <Reveal key={c.id} delay={i * 0.04}>
-            <article className="glass-card flex h-full flex-col p-6">
+            <article
+              onClick={() => setActiveCourseId(c.id)}
+              className="glass-card flex h-full flex-col p-6 group hover:border-primary/50 cursor-pointer transition-all"
+            >
               <div className="flex items-start justify-between">
-                <span className="grid size-11 place-items-center rounded-xl bg-primary/15 text-primary">
+                <span className="grid size-11 place-items-center rounded-xl bg-primary/15 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                   <c.icon className="size-5" />
                 </span>
                 <span className="glass rounded-full px-2.5 py-1 text-[11px] text-muted-foreground">
                   {c.track}
                 </span>
               </div>
-              <h2 className="mt-4 text-base font-semibold">{c.title}</h2>
+              <h2 className="mt-4 text-base font-semibold group-hover:text-primary transition-colors">
+                {c.title}
+              </h2>
+              {c.description && (
+                <p className="mt-1.5 text-xs text-muted-foreground line-clamp-2">
+                  {c.description}
+                </p>
+              )}
               <p className="mt-2 text-xs text-muted-foreground">
                 Уровень: {c.level} · {c.students} учеников
               </p>
               <div className="mt-auto flex flex-wrap items-center gap-4 pt-5 text-xs text-muted-foreground">
                 <span className="inline-flex items-center gap-1.5">
-                  <BookOpen className="size-3.5" /> {c.lessons}
+                  <BookOpen className="size-3.5" /> {c.lessons} уроков
                 </span>
                 <span className="inline-flex items-center gap-1.5">
                   <Clock className="size-3.5" /> {c.hours} ч
                 </span>
                 <span className="inline-flex items-center gap-1.5 text-warning">
-                  <Star className="size-3.5" /> {c.rating}
+                  <Star className="size-3.5 fill-warning" /> {c.rating}
                 </span>
               </div>
-              <Button className="mt-4" size="sm">
-                Начать курс
+              <Button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActiveCourseId(c.id);
+                }}
+                className="mt-4 gap-2"
+                size="sm"
+              >
+                <PlayCircle className="size-4" /> Начать курс
               </Button>
             </article>
           </Reveal>
